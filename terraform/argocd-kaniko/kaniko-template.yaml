@@ -55,11 +55,11 @@ spec:
       emptyDir: {}
     - name: git-secret
       secret:
-        secretName: git-secret # your-ssh-key
+        secretName: kaniko-git-secret # your-ssh-key
         defaultMode: 256
     - name: kaniko-secret
       secret:
-        secretName: dockerhub-registry
+        secretName: kaniko-docker-secrets
         items:
           - key: .dockerconfigjson
             path: config.json
