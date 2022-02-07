@@ -16,15 +16,15 @@ locals {
   setup_commit_path = "/tmp/setup_commit.sh"
 }
 
-resource "github_user_ssh_key" "terraform_deploy_pub_key" {
-  title = "Terraform SSH"
-  key   = file("~/.ssh/terraform_id_ed25519.pub")
-  lifecycle {
-    ignore_changes = [
-      key,
-    ]
-  }
-}
+# resource "github_user_ssh_key" "terraform_deploy_pub_key" {
+#   title = "Terraform SSH"
+#   key   = file("~/.ssh/terraform_id_ed25519.pub")
+#   lifecycle {
+#     ignore_changes = [
+#       key,
+#     ]
+#   }
+# }
 
 
 #  Repo & Branch setup, see: https://github.com/mineiros-io/terraform-github-repository/blob/main/main.tf
