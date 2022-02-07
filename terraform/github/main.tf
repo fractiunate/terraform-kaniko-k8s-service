@@ -12,8 +12,8 @@ provider "github" {
 }
 
 locals {
-  default_branch           = "main"
-  setup_inital_commit_path = "/tmp/setup_inital_commit.sh"
+  default_branch    = "main"
+  setup_commit_path = "/tmp/setup_commit.sh"
 }
 
 resource "github_user_ssh_key" "terraform_deploy_pub_key" {
@@ -45,32 +45,33 @@ resource "github_repository" "terraform_kaniko_k8s_service" {
 #   branch     = local.default_branch
 # }
 
-data "template_file" "setup_inital_commit" {
+data "template_file" "setup_commit" {
   depends_on = [
     github_repository.terraform_kaniko_k8s_service
   ]
-  template = file("${path.module}/setup_inital_commit.sh")
+  template = file("${path.module}/setup_commit.sh")
   vars = {
     REPO_SSH_URL   = github_repository.terraform_kaniko_k8s_service.ssh_clone_url
     DEFAULT_BRANCH = local.default_branch
   }
 }
 
-resource "local_file" "setup_inital_commit" {
-  content  = data.template_file.setup_inital_commit.rendered
-  filename = local.setup_inital_commit_path
+resource "local_file" "setup_commit" {
+  content  = data.template_file.setup_commit.rendered
+  filename = local.setup_commit_path
 }
 
 
-resource "null_resource" "initial_commit" {
+resource "null_resource" "commit" {
   depends_on = [
     github_repository.terraform_kaniko_k8s_service
   ]
   triggers = {
-    file = "${data.template_file.setup_inital_commit.rendered}"
+    time = timestamp()
+    file = "${data.template_file.setup_commit.rendered}"
   }
   provisioner "local-exec" {
-    command = "/bin/bash ${local.setup_inital_commit_path}"
+    command = "/bin/bash ${local.setup_commit_path}"
   }
 }
 
