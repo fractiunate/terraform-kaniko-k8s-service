@@ -1,12 +1,8 @@
 # & ArgoCD-Setup - David Rahäuser 2022
 
 terraform {
-  backend "azurerm" {
-    resource_group_name  = "Terraform-Resources"
-    storage_account_name = "az700terraform"
-    container_name       = "terraform-state"
-    key                  = "dev.argocd.terraform.tfstate"
-  }
+  # backend {}
+
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -28,29 +24,15 @@ provider "azurerm" {
   features {}
 }
 
-data "terraform_remote_state" "tf-state" {
-  backend = "azurerm"
-  config = {
-    resource_group_name  = "Terraform-Resources"
-    storage_account_name = "az700terraform"
-    container_name       = "terraform-state"
-    key                  = "dev.base.terraform.tfstate"
-  }
-}
-
-
 provider "kubernetes" {
-  host                   = data.terraform_remote_state.tf-state.outputs.kubeconfig.host
-  client_certificate     = base64decode(data.terraform_remote_state.tf-state.outputs.kubeconfig.client_certificate)
-  client_key             = base64decode(data.terraform_remote_state.tf-state.outputs.kubeconfig.client_key)
-  cluster_ca_certificate = base64decode(data.terraform_remote_state.tf-state.outputs.kubeconfig.cluster_ca_certificate)
+  config_path = "~/.kube/config"
 }
 
 provider "helm" {
   kubernetes {
-    host                   = data.terraform_remote_state.tf-state.outputs.kubeconfig.host
-    client_certificate     = base64decode(data.terraform_remote_state.tf-state.outputs.kubeconfig.client_certificate)
-    client_key             = base64decode(data.terraform_remote_state.tf-state.outputs.kubeconfig.client_key)
-    cluster_ca_certificate = base64decode(data.terraform_remote_state.tf-state.outputs.kubeconfig.cluster_ca_certificate)
+    config_paths = [
+      "~/.kube/config",
+      "~/.minikube"
+    ]
   }
 }

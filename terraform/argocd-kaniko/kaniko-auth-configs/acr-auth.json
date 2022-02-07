@@ -1,0 +1,7 @@
+{
+    "auths": {
+        "${var.acr_name}.azurecr.io": {
+            "auth": "${BASE64_DOCKER_AUTH}"
+        }
+    }
+}
