@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: kaniko
+  namespace: kaniko
 spec:
   securityContext:
     fsGroup: 65533 # to make SSH key readable
@@ -47,10 +48,10 @@ spec:
           value: "true"
   restartPolicy: Never
   volumes:
-    - name: ssh-key-volume
-      secret:
-        secretName: ssh-key-secret
-        defaultMode: 256
+    # - name: ssh-key-volume
+    #   secret:
+    #     secretName: ssh-key-secret
+    #     defaultMode: 256
     - name: content-from-git
       emptyDir: {}
     - name: git-secret
@@ -60,6 +61,7 @@ spec:
     - name: kaniko-secret
       secret:
         secretName: kaniko-docker-secrets
-        items:
-          - key: .dockerconfigjson
-            path: config.json
+        defaultMode: 256
+        # items:
+        #   - key: .dockerconfigjson
+        #     path: config.json
