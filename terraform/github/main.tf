@@ -29,6 +29,9 @@ resource "github_user_ssh_key" "terraform_deploy_pub_key" {
 
 #  Repo & Branch setup, see: https://github.com/mineiros-io/terraform-github-repository/blob/main/main.tf
 resource "github_repository" "terraform_kaniko_k8s_service" {
+  depends_on = [
+    github_user_ssh_key.terraform_deploy_pub_key
+  ]
   name        = "terraform-kaniko-k8s-service"
   description = "Kaniko and Github terraform deploy"
 
