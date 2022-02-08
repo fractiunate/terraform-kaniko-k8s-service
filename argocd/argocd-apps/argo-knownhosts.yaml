@@ -11,4 +11,4 @@ spec:
   source:
     repoURL: https://github.com/fractiunate/terraform-kaniko-k8s-service
     targetRevision: HEAD
-    path: kustomize-argo-kown-hosts/
+    path: argocd/argo-known-hosts
