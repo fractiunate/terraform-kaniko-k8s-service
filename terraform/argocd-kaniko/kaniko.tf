@@ -11,6 +11,8 @@ resource "kubernetes_namespace" "kaniko" {
 locals {
   # "${base64encode("${DOCKER_USERNAME}:${DOCKER_PASSWORD}")}"
   base64_docker_auth = "abc"
+  # namespace = "default"
+  namespace = "kaniko"
 
 }
 
@@ -49,10 +51,10 @@ template = file("${var.GIT_SSH_PUBLIC_KEY_PATH}")
 
 
 # Config map to create the config.json file which tells kaniko which cloud provider we are using
-resource "kubernetes_config_map" "docker-config" {
+resource "kubernetes_config_map" "docker_config" {
   metadata {
     name      = "kaniko-docker-config"
-    namespace = "kaniko"
+    namespace = local.namespace
   }
   data = {
     "config.json" = data.template_file.docker_auth.rendered
@@ -64,11 +66,11 @@ resource "kubernetes_secret" "kaniko_git_secret" {
     kubernetes_namespace.kaniko
   ]
   metadata {
-    namespace = "kaniko"
-    name      = "kaniko-git-secret"
+    name      = "kanikogitsecret"
+    namespace = local.namespace
   }
   data = {
-    ssh-privatekey = data.template_file.private_key.rendered
+    ssh = data.template_file.private_key.rendered
     ssh-publickey  = data.template_file.public_key.rendered
     known_hosts    = data.template_file.known_hosts.rendered
     config         = data.template_file.config.rendered
@@ -80,8 +82,8 @@ resource "kubernetes_secret" "docker_secrets" {
     kubernetes_namespace.kaniko
   ]
   metadata {
-    namespace = "kaniko"
     name      = "kaniko-docker-secrets"
+    namespace = local.namespace
   }
   data = {
     docker-server   = var.REGISTRY_SERVER
