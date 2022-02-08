@@ -18,7 +18,7 @@ locals {
 
 resource "github_user_ssh_key" "terraform_deploy_pub_key" {
   title = "Terraform SSH"
-  key   = file("~/.ssh/github_id_rsa.pub")
+  key   = file("~/.ssh/terraform_id_ed25519.pub")
   lifecycle {
     ignore_changes = [
       key,
