@@ -2,14 +2,6 @@
 # url: https://github.com/kurtburak/argocd.git
      
 server:
-  configEnabled: true
-  config:
-    repositories: |
-      - type: git
-        url: https://github.com/fractiunate/terraform-kaniko-k8s-service
-      - name: argo-helm
-        type: helm
-        url: https://argoproj.github.io/argo-helm
   additionalApplications: 
     - name: argocd
       namespace: argocd
@@ -23,6 +15,7 @@ server:
           valueFiles:
           - values.yaml
           - ../values-override.yaml
+          - ../repo-values.yaml
         path: argocd/argocd-install/argo-cd
         repoURL: https://github.com/fractiunate/terraform-kaniko-k8s-service
         targetRevision: HEAD

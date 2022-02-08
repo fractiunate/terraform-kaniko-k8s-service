@@ -89,7 +89,7 @@ resource "kubernetes_secret" "kaniko_git_secret" {
     namespace = local.namespace
   }
   data = {
-    ssh = data.template_file.private_key.rendered
+    ssh =            data.template_file.private_key.rendered
     ssh-publickey  = data.template_file.public_key.rendered
     known_hosts    = data.template_file.known_hosts.rendered
     config         = data.template_file.config.rendered
