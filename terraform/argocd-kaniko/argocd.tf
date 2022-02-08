@@ -32,7 +32,7 @@ resource "kubernetes_secret" "github-repo-secret" {
     kubernetes_namespace.argocd_namespace
   ]
   metadata {
-    name      = "argocd-repo-ssh-secret"
+    name      = "github-repo-secret"
     namespace = local.kubernetes_argocd_namespace
     labels = {
       "argocd.argoproj.io/secret-type" = "repository"
