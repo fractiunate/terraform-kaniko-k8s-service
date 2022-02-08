@@ -46,7 +46,7 @@ data "template_file" "private_key" {
   template = file("${var.GIT_SSH_PRIVATE_KEY_PATH}")
 }
 data "template_file" "public_key" {
-template = file("${var.GIT_SSH_PUBLIC_KEY_PATH}")
+  template = file("${var.GIT_SSH_PUBLIC_KEY_PATH}")
 }
 
 
@@ -63,7 +63,7 @@ resource "kubernetes_config_map" "docker_config" {
 
 resource "kubernetes_secret" "dockerhub_registry" {
   metadata {
-    name = "dockerhub-registry"
+    name      = "dockerhub-registry"
     namespace = local.namespace
   }
 
@@ -78,6 +78,7 @@ resource "kubernetes_secret" "dockerhub_registry" {
   }
 
   type = "kubernetes.io/dockerconfigjson"
+
 }
 
 resource "kubernetes_secret" "kaniko_git_secret" {
@@ -89,10 +90,10 @@ resource "kubernetes_secret" "kaniko_git_secret" {
     namespace = local.namespace
   }
   data = {
-    ssh =            data.template_file.private_key.rendered
-    ssh-publickey  = data.template_file.public_key.rendered
-    known_hosts    = data.template_file.known_hosts.rendered
-    config         = data.template_file.config.rendered
+    ssh           = data.template_file.private_key.rendered
+    ssh-publickey = data.template_file.public_key.rendered
+    known_hosts   = data.template_file.known_hosts.rendered
+    config        = data.template_file.config.rendered
   }
 }
 
