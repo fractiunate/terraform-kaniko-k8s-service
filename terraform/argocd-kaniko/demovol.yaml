@@ -2,14 +2,15 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: my-app
-  # namespace: kaniko
+  namespace: kaniko
 spec:
+  securityContext:
+    fsGroup: 65533 # to make SSH key readable
   containers:
+  
     - name: my-app
-      command: ['sh', '-c', 'echo The app is running! && ls -lah /etc/git-secret/ && sleep 3600']            
-      image: k8s.gcr.io/git-sync:v3.1.5
-      args:
-        - "--root=/git"
+      command: ['sh', '-c', 'echo The app is running! && ls -lah /etc/git-secret/ && cd / &&  ./git-sync ']            
+      image: k8s.gcr.io/git-sync/git-sync:v3.4.0
       env:
         - name: GIT_SYNC_REPO
           value: git@github.com:fractiunate/private-project.git

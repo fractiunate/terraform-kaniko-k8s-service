@@ -61,6 +61,25 @@ resource "kubernetes_config_map" "docker_config" {
   }
 }
 
+resource "kubernetes_secret" "dockerhub_registry" {
+  metadata {
+    name = "dockerhub-registry"
+    namespace = local.namespace
+  }
+
+  data = {
+    ".dockerconfigjson" = jsonencode({
+      auths = {
+        "${var.REGISTRY_SERVER}" = {
+          auth = "${base64encode("${var.REGISTRY_USER}:${var.REGISTRY_PASS}")}"
+        }
+      }
+    })
+  }
+
+  type = "kubernetes.io/dockerconfigjson"
+}
+
 resource "kubernetes_secret" "kaniko_git_secret" {
   depends_on = [
     kubernetes_namespace.kaniko
