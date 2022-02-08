@@ -12,9 +12,9 @@ variable "REGISTRY_PASS" {}
 variable "REGISTRY_EMAIL" {}
 
 variable "GIT_SSH_PRIVATE_KEY_PATH" {
-  default = "~/.ssh/github_terraform_id_rsa"
+  default = "~/.ssh/github_id_rsa"
 }
 
 variable "GIT_SSH_PUBLIC_KEY_PATH" {
-    default = "~/.ssh/github_terraform_id_rsa.pub"
+    default = "~/.ssh/github_id_rsa.pub"
 }

@@ -10,11 +10,11 @@ resource "kubernetes_namespace" "argocd_namespace" {
 
 
 
-#   repository       = "https://argoproj.github.io/argo-helm"
 resource "helm_release" "argocd" {
   name             = "argocd"
   chart            = "argo-cd"
-  repository       = "${path.module}/../../argocd/argocd-install"
+  # repository       = "${path.module}/../../argocd/argocd-install"
+  repository       = "https://argoproj.github.io/argo-helm"
   namespace        = kubernetes_namespace.argocd_namespace.metadata.0.name
   create_namespace = false
   # max_history = 3

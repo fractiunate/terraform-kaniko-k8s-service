@@ -32,9 +32,6 @@ Host github.com
   PreferredAuthentications publickey
   IdentityFile "${var.GIT_SSH_PRIVATE_KEY_PATH}"
   EOF
-  # vars = {
-  #   GIT_SSH_PRIVATE_KEY_PATH = var.GIT_SSH_PRIVATE_KEY_PATH
-  # }
 }
 
 # command = "/bin/bash ssh-keyscan -t rsa github.com >> ${path.module}/known_hosts"
