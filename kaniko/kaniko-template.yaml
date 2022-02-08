@@ -16,7 +16,7 @@ spec:
       # image gcr.io/kaniko-project/executor:debug
       args:
         - "--context=dir:///workspace/project"
-        - "--destination=fractiunate/kaniko-demo:v1.0.1-kaniko"
+        - "--destination=fractiunate/kaniko-demo:v1.0.2-kaniko"
         - "--dockerfile=Dockerfile"
       volumeMounts:
         - name: content-from-git
