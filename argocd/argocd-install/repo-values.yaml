@@ -11,8 +11,14 @@ server:
         type: helm
         url: https://argoproj.github.io/argo-helm
       - url: git@github.com:fractiunate/private-project.git
+        name: github-id_ed25519
         sshPrivateKeySecret:
-          name: argocd-repo-ssh-secret
+          name: github-repo-secret
+          key: ssh-privatekey
+      - url: git@github.com:fractiunate/private-project.git
+        name: gitlab-id_ed25519
+        sshPrivateKeySecret:
+          name: gitlab-repo-secret
           key: ssh-privatekey
 configs:
   knownHosts:
