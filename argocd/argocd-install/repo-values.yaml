@@ -10,3 +10,7 @@ server:
       - name: argo-helm
         type: helm
         url: https://argoproj.github.io/argo-helm
+      - url: git@github.com:fractiunate/private-project.git
+        sshPrivateKeySecret:
+          name: argocd-repo-ssh-secret
+          key: sshPrivateKey
