@@ -9,6 +9,6 @@ spec:
     server: https://kubernetes.default.svc
   project: kaniko-project
   source:
-    path: ./kaniko/
+    path: ./kaniko/version/
     repoURL: https://github.com/fractiunate/terraform-kaniko-k8s-service.git
     targetRevision: HEAD
