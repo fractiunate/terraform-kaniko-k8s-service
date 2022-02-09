@@ -11,7 +11,7 @@ spec:
     fsGroup: 65533 # to make SSH key readable
     fsGroupChangePolicy: "OnRootMismatch"
   containers:
-    - name: kaniko
+    - name: kaniko-build
       image: gcr.io/kaniko-project/executor:latest
       # image gcr.io/kaniko-project/executor:debug
       args:
@@ -24,7 +24,7 @@ spec:
         - name: dockerhub-registry-secret
           mountPath: /kaniko/.docker
   initContainers:
-    - name: git-sync
+    - name: git-sync-build
       image: k8s.gcr.io/git-sync/git-sync:v3.4.0
       securityContext:
         runAsUser: 65533
