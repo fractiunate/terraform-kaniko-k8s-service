@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: kaniko-project
-  namespace: argocd
+  namespace: kaniko
 spec:
   clusterResourceWhitelist:
   - group: '*'
