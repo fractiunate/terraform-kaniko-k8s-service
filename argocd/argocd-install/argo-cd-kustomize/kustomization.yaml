@@ -1,0 +1,23 @@
+# apiVersion: kustomize.config.k8s.io/v1beta1
+# kind: Kustomization
+
+# helmCharts:
+# - name: argo-cd
+#   includeCRDs: true
+#   valuesInline:
+#     minecraftServer:
+#       eula: true
+#       difficulty: hard
+#       rcon:
+#         enabled: true
+#   releaseName: argocd
+#   version: 3.1.3
+#   repo: https://argoproj.github.io/argo-helm
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+generators:
+- argocd-chartinflator.yaml
+# commonLabels:
+#   env: dev
