@@ -4,13 +4,13 @@ metadata:
   name: App-of-Apps
 spec:
   destination:
-    namespace: argocd
+    namespace: kaniko
     server: "https://kubernetes.default.svc"
   source:
-    path: ./argocd/argocd-apps
+    path: ./argocd/argocd-apps/kaniko
     repoURL: https://github.com/fractiunate/terraform-kaniko-k8s-service.git
     targetRevision: HEAD
-  project: default
+  project: kaniko-project
   syncPolicy:
     automated:
       prune: true
