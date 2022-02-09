@@ -7,7 +7,7 @@ spec:
     namespace: argocd
     server: "https://kubernetes.default.svc"
   source:
-    path: argocd/argocd-apps
+    path: ./argocd/argocd-apps
     repoURL: https://github.com/fractiunate/terraform-kaniko-k8s-service.git
     targetRevision: HEAD
   project: default
