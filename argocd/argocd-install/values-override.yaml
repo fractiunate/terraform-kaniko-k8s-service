@@ -33,7 +33,7 @@ server:
         repoURL: https://github.com/fractiunate/terraform-kaniko-k8s-service
         targetRevision: HEAD
         directory:
-          recurse: true
+          recurse: false
           jsonnet: {}
       syncPolicy:
         automated:
