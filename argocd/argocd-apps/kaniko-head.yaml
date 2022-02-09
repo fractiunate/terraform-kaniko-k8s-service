@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kaniko-workload
+  name: kaniko-head
   namespace: argocd
 spec:
   destination:
@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: kaniko-project
   source:
-    path: ./kaniko/
+    path: ./argocd/argocd-apps/kaniko-workload/
     repoURL: https://github.com/fractiunate/terraform-kaniko-k8s-service.git
     targetRevision: HEAD
   syncPolicy:
