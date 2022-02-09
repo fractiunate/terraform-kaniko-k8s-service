@@ -23,7 +23,7 @@ server:
         sshPrivateKeySecret:
           name: github-repo-secret
           key: ssh-privatekey
-      - url: git@github.com:fractiunate/private-project.git
+      - url: git@gitlab.com:Fractiunate/private-project.git
         name: gitlab-id_ed25519
         sshPrivateKeySecret:
           name: gitlab-repo-secret
